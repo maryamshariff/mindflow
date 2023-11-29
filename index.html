@@ -11,7 +11,8 @@
     margin-right: 100px;
     border: 2px solid black;
     opacity: 0;
-    transition: opacity 0.5s ease;  
+    transition: opacity 0.5s ease;
+    position: absolute;
   }
  
   .diamond {
@@ -110,9 +111,8 @@
       if (clickCounter >= clickLimit) {
         // nn.off('click', newPatch);
       } else {
-        const div = nn.create('div');
-
-        const img = nn.create('img');
+        const div = nn.create('.cats');
+			  const img = nn.create('img');
         const imageUrl = imageOrder[clickCounter % imageOrder.length];
         img.setAttribute('src', imageUrl);
         img.setAttribute('width', '200');
@@ -123,14 +123,11 @@
 
         // Trigger a reflow to apply the initial opacity transition
 		  div.style.opacity = 1;
-
-        clickCounter++;
+		  clickCounter++;
       }
     }
-
     nn.on('click', newPatch);
   </script>
-       
 
 </body>
 
