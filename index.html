@@ -1,0 +1,114 @@
+<style>
+  div {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+  }
+/*background*/
+  .diamond {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .red {
+    background-color: red;
+  }
+
+  .blue {
+    background-color: blue;
+  }
+
+  .yellow {
+    background-color: yellow;
+  }
+
+  .pink {
+    background-color: pink;
+  }
+
+  .light-blue {
+    background-color: lightblue;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    max-width: 630px;
+    margin: 0 auto;
+  }
+ 
+  /*photos*/
+  .gallery > div {
+    width: 200px;
+    height: 200px;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  @media (max-width: 630px) {
+    .gallery > div {
+      width: calc(33vw - 10px);
+      height: calc(33vw - 10px);
+    }
+  }
+
+    .background {
+  position: absolute;
+  top: 0px;
+	left: 0px;
+  z-index: -1;
+  }
+  
+  
+  
+  
+</style>
+
+
+<body>
+  <section class="gallery">
+  <div style="background-image: url(tutorials/responsive-web-design/dog1.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog2.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog3.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog4.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog5.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog6.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog7.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog8.jpg)"></div>
+  <div style="background-image: url(tutorials/responsive-web-design/dog9.jpg)"></div>
+</section>
+  
+  <section class="background">
+  </section>
+  
+
+  
+  <script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+  <script>
+    /* global nn */
+
+    function getRandomColor() {
+      const colors = ['red', 'blue', 'yellow', 'pink', 'light-blue'];
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      return colors[randomIndex];
+    }
+
+    function newPatch() {
+      const div = nn.create('div');
+      if (nn.random() > 0.5) {
+        div.setAttribute('class', 'diamond ' + getRandomColor());
+      } else {
+        div.setAttribute('class', getRandomColor());
+      }
+      div.addTo('.background');
+    }
+
+    function animation() {
+      newPatch();
+      setTimeout(animation, 100);
+    }
+
+    nn.on('load', animation);
+  </script>
+</body>
+
