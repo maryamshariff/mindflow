@@ -5,6 +5,15 @@
     display: inline-block;
   }
 /*background*/
+  
+  .cats{
+    display: inline-block;
+    margin-right: 100px;
+    border: 2px solid black;
+    opacity: 0;
+    transition: opacity 0.5s ease;  
+  }
+ 
   .diamond {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   }
@@ -29,29 +38,6 @@
     background-color: lightblue;
   }
 
-  .gallery {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
-    max-width: 630px;
-    margin: 0 auto;
-  }
- 
-  /*photos*/
-  .gallery > div {
-    width: 200px;
-    height: 200px;
-    background-position: center;
-    background-size: cover;
-  }
-  
-  @media (max-width: 630px) {
-    .gallery > div {
-      width: calc(33vw - 10px);
-      height: calc(33vw - 10px);
-    }
-  }
-
     .background {
   position: absolute;
   top: 0px;
@@ -59,10 +45,7 @@
   z-index: -1;
   }
   
-  
-  
-  
-</style>
+  </style>
 
 
 <body>
@@ -93,7 +76,7 @@
       return colors[randomIndex];
     }
 
-    function newPatch() {
+    function newPixel() {
       const div = nn.create('div');
       if (nn.random() > 0.5) {
         div.setAttribute('class', 'diamond ' + getRandomColor());
@@ -104,11 +87,50 @@
     }
 
     function animation() {
-      newPatch();
+      newPixel();
       setTimeout(animation, 100);
     }
 
     nn.on('load', animation);
+    
+    
+    
+   /* cats*/ 
+    const clickLimit = 5;
+    let clickCounter = 0;
+
+    const imageOrder = [
+      'https://placekitten.com/150/150',
+      'https://placekitten.com/150/151',
+      'https://placekitten.com/150/152',
+      // Add more image URLs as needed
+    ];
+
+    function newPatch() {
+      if (clickCounter >= clickLimit) {
+        // nn.off('click', newPatch);
+      } else {
+        const div = nn.create('div');
+
+        const img = nn.create('img');
+        const imageUrl = imageOrder[clickCounter % imageOrder.length];
+        img.setAttribute('src', imageUrl);
+        img.setAttribute('width', '200');
+        img.setAttribute('height', '200');
+
+        div.appendChild(img);
+        div.addTo('body');
+
+        // Trigger a reflow to apply the initial opacity transition
+		  div.style.opacity = 1;
+
+        clickCounter++;
+      }
+    }
+
+    nn.on('click', newPatch);
   </script>
+       
+
 </body>
 
