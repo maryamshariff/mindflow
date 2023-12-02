@@ -4,17 +4,15 @@
     height: 40px;
     display: inline-block;
   }
-/*background*/
-  
-  .cats{
+
+  .cats {
     display: inline-block;
-    margin-right: 100px;
-    border: 2px solid black;
-    opacity: 0;
+    margin-right: 300px; /* Increase the margin-right value for more space */
+    margin-bottom: 300px;
+    opacity: 0; /* Set initial opacity to 1 */
     transition: opacity 0.5s ease;
-    position: absolute;
   }
- 
+
   .diamond {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   }
@@ -39,34 +37,18 @@
     background-color: lightblue;
   }
 
-    .background {
-  position: absolute;
-  top: 0px;
-	left: 0px;
-  z-index: -1;
+  .background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
   }
-  
-  </style>
-
+</style>
 
 <body>
-  <section class="gallery">
-  <div style="background-image: url(tutorials/responsive-web-design/dog1.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog2.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog3.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog4.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog5.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog6.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog7.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog8.jpg)"></div>
-  <div style="background-image: url(tutorials/responsive-web-design/dog9.jpg)"></div>
-</section>
-  
   <section class="background">
   </section>
-  
 
-  
   <script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
   <script>
     /* global nn */
@@ -82,7 +64,8 @@
       if (nn.random() > 0.5) {
         div.setAttribute('class', 'diamond ' + getRandomColor());
       } else {
-        div.setAttribute('class', getRandomColor());
+        const colorClass = getRandomColor();
+        div.setAttribute('class', colorClass);
       }
       div.addTo('.background');
     }
@@ -93,10 +76,8 @@
     }
 
     nn.on('load', animation);
-    
-    
-    
-   /* cats*/ 
+
+    /* cats */
     const clickLimit = 5;
     let clickCounter = 0;
 
@@ -109,25 +90,29 @@
 
     function newPatch() {
       if (clickCounter >= clickLimit) {
-        // nn.off('click', newPatch);
       } else {
-        const div = nn.create('.cats');
-			  const img = nn.create('img');
+        const div = nn.create('div');
+        const img = nn.create('img');
         const imageUrl = imageOrder[clickCounter % imageOrder.length];
         img.setAttribute('src', imageUrl);
-        img.setAttribute('width', '200');
-        img.setAttribute('height', '200');
+        img.setAttribute('width', '300');
+        img.setAttribute('height', '300');
+        div.setAttribute('class', 'cats');
 
         div.appendChild(img);
         div.addTo('body');
 
         // Trigger a reflow to apply the initial opacity transition
-		  div.style.opacity = 1;
-		  clickCounter++;
+      div.offsetHeight;
+        div.style.opacity = 1;
+        clickCounter++;
       }
     }
     nn.on('click', newPatch);
   </script>
-
 </body>
+
+
+
+
 
