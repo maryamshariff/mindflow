@@ -72,13 +72,13 @@
 
     function animation() {
       newPixel();
-      setTimeout(animation, 100);
+      setTimeout(animation, 70);
     }
 
     nn.on('load', animation);
 
     /* cats */
-    const clickLimit = 5;
+    const clickLimit = 100;
     let clickCounter = 0;
 
     const imageOrder = [
